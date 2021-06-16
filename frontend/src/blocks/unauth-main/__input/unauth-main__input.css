@@ -1,0 +1,15 @@
+.unauth-main__input {
+    font-weight: normal;
+    width: 358px;
+    font-size: 14px;
+    line-height: 17px;
+    background-color: #000000;
+    color: #CCCCCC;
+    padding: 0 0 13px 0;
+    border: none;
+    border-bottom: 1px solid #CCCCCC;
+  }
+  
+  .unauth-main__input:not(:first-child) {
+      margin-top: 30px;
+  }

@@ -1,0 +1,16 @@
+.unauth-main__link {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #ffffff;
+  text-decoration: none;
+  
+  margin-top: 15px;
+  padding: 0;
+}
+
+.unauth-main__link:hover {
+    opacity: 0.6;
+  }

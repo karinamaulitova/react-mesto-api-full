@@ -1,0 +1,20 @@
+.unauth-main__button {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    color: #000000;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    padding: 14px 0;
+    border: none;
+    border-radius: 2px;
+    margin-top: 216px;
+    cursor: pointer;
+  }
+  
+  .unauth-main__button:hover {
+    opacity: 0.85;
+  }
+  

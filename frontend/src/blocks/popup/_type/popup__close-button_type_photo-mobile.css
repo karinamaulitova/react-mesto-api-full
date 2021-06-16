@@ -1,0 +1,6 @@
+@media screen and (max-width: 767px) {
+  .popup__close-button_type_photo-mobile {
+    right: -25px;
+    top: -25px;
+  }
+}
