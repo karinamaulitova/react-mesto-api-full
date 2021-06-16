@@ -52,7 +52,7 @@ function MainPage({ onCurrentUserDataChange }) {
     api
       .changeUserInfo(data)
       .then((data) => {
-        onCurrentUserDataChange(data);
+        onCurrentUserDataChange(data.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -64,7 +64,7 @@ function MainPage({ onCurrentUserDataChange }) {
     api
       .changeUserAvatar(data)
       .then((data) => {
-        onCurrentUserDataChange(data);
+        onCurrentUserDataChange(data.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -84,10 +84,11 @@ function MainPage({ onCurrentUserDataChange }) {
   }, []);
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card?.likes?.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, !isLiked)
-      .then((newCard) => {
+      .then((data) => {
+        const newCard = data.data;
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
@@ -111,8 +112,8 @@ function MainPage({ onCurrentUserDataChange }) {
   function handleAddPlaceSubmit(data) {
     api
       .createNewCard(data)
-      .then((newCard) => {
-        setCards([newCard, ...cards]);
+      .then((data) => {
+        setCards([data.data, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {

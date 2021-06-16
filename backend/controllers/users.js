@@ -67,6 +67,12 @@ module.exports.login = async (req, res, next) => {
   }
 };
 
+module.exports.logout = (req, res, next) => {
+  res.clearCookie('jwt');
+  res.status(200).send({ success: true });
+  res.end();
+}
+
 module.exports.findAll = (req, res, next) => {
   User.find()
     .then((users) => res.send({ data: users }))
