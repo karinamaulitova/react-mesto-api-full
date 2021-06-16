@@ -1,5 +1,5 @@
 
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'https://api.karina.mesto.students.nomoredomains.club';
 
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -29,24 +29,15 @@ export const authorize = (email, password) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({email, password})
-    })
-    .then((response => response.json()))
-    .then((data) => {
-      if (data){
-        localStorage.setItem('jwt', data.token);
-        return data;
-      }
-    })
-    .catch(err => console.log(err))
+    }).catch(err => console.log(err))
   };
 
-  export const checkToken = (token) => {
+  export const checkToken = () => {
     return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
       }
     })
     .then(res => res.json())
