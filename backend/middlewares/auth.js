@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
 
   let payload;
   try {
-    payload = jwtLib.verify(jwt, 'Mucho secret');
+    payload = jwtLib.verify(jwt, process.env.JWT_SECRET);
   } catch (err) {
     next(new UnuathorizedError('Необходима авторизация'));
     return;

@@ -22,6 +22,7 @@ function App() {
     history.replace("/");
   };
 
+
   const handleRegister = () => {
     history.replace("/sign-in");
   };

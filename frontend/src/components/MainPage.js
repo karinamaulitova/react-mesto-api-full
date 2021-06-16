@@ -10,6 +10,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import { useHistory } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import MainLayout from "./MainLayout.js";
+import * as auth from "../utils/auth";
 
 function MainPage({ onCurrentUserDataChange }) {
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = React.useState(
@@ -126,6 +127,7 @@ function MainPage({ onCurrentUserDataChange }) {
   function signOut(e) {
     e.preventDefault();
     localStorage.removeItem("jwt");
+    auth.logout();
     history.replace("/sign-in");
   }
 

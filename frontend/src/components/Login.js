@@ -11,11 +11,9 @@ function Login({onLoggedIn}) {
     if (!email || !password) {
       return;
     }
-    auth.authorize(email, password).then((data) => {
-      if(data.token){
-        onLoggedIn({token: data.token, email});
-      }
-    })
+    auth.authorize(email, password).then(() => {
+        onLoggedIn({ email });
+    }).catch(err => console.log(err))
   }
 
   return (
