@@ -5,7 +5,7 @@ const NotFoundError = require('../errors/not-found-err');
 const RequestError = require('../errors/request-err');
 const UnauthorizedError = require('../errors/unauthorized-err');
 const ConflictError = require('../errors/conflict-err');
-const { NODE_ENV, JWT_SECRET } = process.env;
+const {jwtSecret} = require('../utils/config');
 
 module.exports.createUser = (req, res, next) => {
   const {
@@ -55,7 +55,7 @@ module.exports.login = async (req, res, next) => {
       {
         _id: user._id,
       },
-      NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret'
+      jwtSecret
     );
     res.cookie('jwt', token, {
       maxAge: 3600000 * 24 * 7,
