@@ -15,6 +15,7 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 app.use(cors({
+  origin : "https://karina.mesto.students.nomoredomains.club",
   credentials: true
 }));
 
