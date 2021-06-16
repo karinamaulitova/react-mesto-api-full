@@ -76,7 +76,7 @@ function MainPage({ onCurrentUserDataChange }) {
     api
       .getInitialCards()
       .then((data) => {
-        setCards(data);
+        setCards(data.data);
       })
       .catch((err) => {
         console.log(err);

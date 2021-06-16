@@ -27,21 +27,17 @@ function App() {
   };
 
   React.useEffect(() => {
-    const intialToken = localStorage.getItem("jwt");
-    if (intialToken) {
       auth
-        .checkToken(intialToken)
+        .checkToken()
         .then((responce) => {
           setLoggedIn(true)
-          setCurrentUserEmail(responce.data.email);
+          setCurrentUserEmail(responce.email);
           history.replace('/')
         })
         .catch(() => {
-          localStorage.removeItem("jwt");
           setLoggedIn(false);
           setCurrentUserEmail("");
         })
-    }
   }, []);
 
   React.useEffect(() => {

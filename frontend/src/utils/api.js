@@ -13,13 +13,13 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(this._baseUrl + "/cards", { headers: this._headers }).then(
+    return fetch(this._baseUrl + "/cards", { headers: this._headers,  credentials: "include", }).then(
       handleOriginalResponse
     );
   }
 
   getMyInfo() {
-    return fetch(this._baseUrl + "/users/me", { headers: this._headers }).then(
+    return fetch(this._baseUrl + "/users/me", { headers: this._headers,  credentials: "include", }).then(
       handleOriginalResponse
     );
   }
@@ -27,6 +27,7 @@ class Api {
   createNewCard(newCardData) {
     return fetch(this._baseUrl + "/cards", {
       method: "POST",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify(newCardData),
     }).then(handleOriginalResponse);
@@ -35,6 +36,7 @@ class Api {
   changeUserInfo(data) {
     return fetch(this._baseUrl + "/users/me", {
       method: "PATCH",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -46,6 +48,7 @@ class Api {
   changeUserAvatar(data) {
     return fetch(this._baseUrl + "/users/me/avatar", {
       method: "PATCH",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({ avatar: data.avatar }),
     }).then(handleOriginalResponse);
@@ -54,6 +57,7 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
+      credentials: "include",
       headers: this._headers,
     }).then(handleOriginalResponse);
   }
@@ -61,6 +65,7 @@ class Api {
   setLike(id) {
     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       method: "PUT",
+      credentials: "include",
       headers: this._headers,
     }).then(handleOriginalResponse);
   }
@@ -68,6 +73,7 @@ class Api {
   deleteLike(id) {
     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       method: "DELETE",
+      credentials: "include",
       headers: this._headers,
     }).then(handleOriginalResponse);
   }
