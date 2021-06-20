@@ -1,6 +1,5 @@
 const express = require('express');
 const { celebrate, Joi } = require('celebrate');
-
 const router = express.Router();
 
 const {
@@ -10,6 +9,8 @@ const {
   changeAvatar,
   findCurrentUser,
 } = require('../controllers/users');
+
+const linkValidator = require('../utils/linkValidator');
 
 router.get('/users', findAll);
 router.get('/users/me', findCurrentUser);
@@ -21,16 +22,16 @@ router.patch(
       about: Joi.string().min(2).max(30),
     }),
   }),
-  changeProfile,
+  changeProfile
 );
 router.patch(
   '/users/me/avatar',
   celebrate({
     body: Joi.object().keys({
-      avatar: Joi.string(),
+      avatar: Joi.string().custom(linkValidator, 'custom URL validation'),
     }),
   }),
-  changeAvatar,
+  changeAvatar
 );
 router.get('/users/:id', findById);
 

@@ -13,6 +13,7 @@ const { INTERNAL_SERVER_ERROR } = require('./utils/error-codes');
 const { login, createUser, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const linkValidator = require('./utils/linkValidator');
 
 const { PORT = 3000 } = process.env;
 
@@ -62,7 +63,7 @@ app.post(
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30),
       about: Joi.string().min(2).max(30),
-      avatar: Joi.string(),
+      avatar: Joi.string().custom(linkValidator, 'custom URL validation'),
       email: Joi.string().required(),
       password: Joi.string().required(),
     }),
