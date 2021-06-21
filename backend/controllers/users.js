@@ -8,32 +8,32 @@ const ConflictError = require('../errors/conflict-err');
 const { jwtSecret } = require('../utils/config');
 
 module.exports.createUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
   bcrypt
     .hash(password, 10)
-    .then((hash) =>
-      User.create({
-        name,
-        about,
-        avatar,
-        email,
-        password: hash,
-      })
-    )
+    .then((hash) => User.create({
+      name,
+      about,
+      avatar,
+      email,
+      password: hash,
+    }))
     .then((user) => {
-      const { password, ...publicUser } = user;
+      const { password: _, ...publicUser } = user.toObject();
       res.send({ data: publicUser });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(
           new RequestError(
-            'Переданы некорректные данные при создании пользователя'
-          )
+            'Переданы некорректные данные при создании пользователя',
+          ),
         );
       } else if (err.name === 'MongoError' && err.code === 11000) {
         next(
-          new ConflictError('Пользователь с таким email уже зарегистрирован')
+          new ConflictError('Пользователь с таким email уже зарегистрирован'),
         );
       } else {
         next(new Error('Ошибка по умолчанию'));
@@ -58,7 +58,7 @@ module.exports.login = async (req, res, next) => {
       {
         _id: user._id,
       },
-      jwtSecret
+      jwtSecret,
     );
     res.cookie('jwt', token, {
       maxAge: 3600000 * 24 * 7,
@@ -71,7 +71,7 @@ module.exports.login = async (req, res, next) => {
   }
 };
 
-module.exports.logout = (req, res, next) => {
+module.exports.logout = (req, res) => {
   res.clearCookie('jwt');
   res.status(200).send({ success: true });
   res.end();
@@ -84,8 +84,8 @@ module.exports.findAll = (req, res, next) => {
       if (err.name === 'ValidationError') {
         next(
           new RequestError(
-            'Переданы некорректные данные при создании пользователя'
-          )
+            'Переданы некорректные данные при создании пользователя',
+          ),
         );
       } else {
         next(new Error('Ошибка по умолчанию'));
@@ -103,7 +103,7 @@ module.exports.findById = (req, res, next) => {
         next(new NotFoundError('Пользователь по указанному _id не найден'));
       } else if (err.name === 'CastError') {
         next(
-          new RequestError('Переданы некорректные данные при поиске профиля')
+          new RequestError('Переданы некорректные данные при поиске профиля'),
         );
       } else {
         next(new Error('Ошибка по умолчанию'));
@@ -127,7 +127,7 @@ module.exports.changeProfile = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
-    { new: true, runValidators: true, omitUndefined: true }
+    { new: true, runValidators: true, omitUndefined: true },
   )
     .orFail(new Error('NotFound'))
     .then((user) => res.send({ data: user }))
@@ -137,8 +137,8 @@ module.exports.changeProfile = (req, res, next) => {
       } else if (err.name === 'ValidationError') {
         next(
           new RequestError(
-            'Переданы некорректные данные при обновлении профиля'
-          )
+            'Переданы некорректные данные при обновлении профиля',
+          ),
         );
       } else {
         next(new Error('Ошибка по умолчанию'));
@@ -151,7 +151,7 @@ module.exports.changeAvatar = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     { avatar },
-    { new: true, runValidators: true }
+    { new: true, runValidators: true },
   )
     .orFail(new Error('NotFound'))
     .then((user) => res.send({ data: user }))
@@ -161,8 +161,8 @@ module.exports.changeAvatar = (req, res, next) => {
       } else if (err.name === 'ValidationError') {
         next(
           new RequestError(
-            'Переданы некорректные данные при обновлении профиля'
-          )
+            'Переданы некорректные данные при обновлении профиля',
+          ),
         );
       } else {
         next(new Error('Ошибка по умолчанию'));
