@@ -39,7 +39,7 @@ function App() {
           setLoggedIn(false);
           setCurrentUserEmail("");
         })
-  }, []);
+  }, [ loggedIn ]);
 
   React.useEffect(() => {
     api

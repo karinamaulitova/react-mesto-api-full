@@ -30,7 +30,7 @@ app.use(
     origin: 'https://karina.mesto.students.nomoredomains.club',
     credentials: true,
     allowedHeaders: 'cookie,content-type',
-  })
+  }),
 );
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
@@ -55,7 +55,7 @@ app.post(
       password: Joi.string().required(),
     }),
   }),
-  login
+  login,
 );
 app.post(
   '/signup',
@@ -68,7 +68,7 @@ app.post(
       password: Joi.string().required(),
     }),
   }),
-  createUser
+  createUser,
 );
 app.post('/signout', logout);
 app.use(cookieParser());

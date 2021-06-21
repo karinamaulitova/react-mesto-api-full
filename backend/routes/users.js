@@ -1,5 +1,6 @@
 const express = require('express');
 const { celebrate, Joi } = require('celebrate');
+
 const router = express.Router();
 
 const {
@@ -22,7 +23,7 @@ router.patch(
       about: Joi.string().min(2).max(30),
     }),
   }),
-  changeProfile
+  changeProfile,
 );
 router.patch(
   '/users/me/avatar',
@@ -31,7 +32,7 @@ router.patch(
       avatar: Joi.string().custom(linkValidator, 'custom URL validation'),
     }),
   }),
-  changeAvatar
+  changeAvatar,
 );
 router.get('/users/:id', findById);
 
