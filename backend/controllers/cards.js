@@ -51,7 +51,6 @@ module.exports.deleteById = async (req, res, next) => {
   }
 };
 
-// eslint-disable-next-line no-unused-vars
 module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.id,
@@ -75,7 +74,6 @@ module.exports.likeCard = (req, res, next) => {
     });
 };
 
-// eslint-disable-next-line no-unused-vars
 module.exports.dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.id,
